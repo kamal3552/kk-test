@@ -16,3 +16,40 @@ bar_chart.add('Sales', sales)
 
 # Render the chart to an SVG image file
 bar_chart.render_to_file('sales_chart.svg')
+================================================
+
+from atlassian import Confluence
+import pygal
+
+# Set up a Confluence API connection
+confluence = Confluence(
+    url='https://your-confluence-url.com',
+    username='your-username',
+    password='your-password')
+
+# Retrieve the Confluence page containing the table
+page_id = '12345678'
+page = confluence.get_page_by_id(page_id)
+
+# Extract the table from the Confluence page
+table_data = page['body']['storage']['value']
+table_start = table_data.index('<ac:structured-macro ac:name="table">')
+table_end = table_data.index('</ac:structured-macro>', table_start)
+table_data = table_data[table_start:table_end]
+
+# Convert the table data to a list of lists
+rows = table_data.split('\n')[2:-1]
+table = [row.split('|')[1:-1] for row in rows]
+
+# Extract the relevant columns from the table
+years = [row[0] for row in table]
+sales = [row[1] for row in table]
+
+# Create a bar chart using Pygal
+bar_chart = pygal.Bar()
+bar_chart.title = 'Sales by Year'
+bar_chart.x_labels = years
+bar_chart.add('Sales', sales)
+
+# Render the chart to an SVG image file
+bar_chart.render_to_file('sales_chart.svg')
