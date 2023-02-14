@@ -1,0 +1,36 @@
+import requests
+import json
+
+confluence_url = "https://your-confluence-url.com"
+page_id = "1234567"  # replace with the page ID you want to update
+username = "your-username"
+password = "your-password"
+
+# define the data to update the table
+new_values = [
+    ['John', 'Doe', '22'],
+    ['Jane', 'Doe', '25'],
+    ['Bob', 'Smith', '30']
+]
+table_data = {
+    "storage": {
+        "value": "<table><tbody>"
+    }
+}
+for row in new_values:
+    table_data["storage"]["value"] += "<tr>"
+    for cell in row:
+        table_data["storage"]["value"] += f"<td>{cell}</td>"
+    table_data["storage"]["value"] += "</tr>"
+table_data["storage"]["value"] += "</tbody></table>"
+
+# update the Confluence page
+api_url = f"{confluence_url}/rest/api/content/{page_id}"
+headers = {"Content-Type": "application/json"}
+auth = (username, password)
+response = requests.get(api_url, headers=headers, auth=auth)
+page_data = response.json()
+page_data["body"]["storage"] = table_data["storage"]
+update_data = json.dumps(page_data)
+response = requests.put(api_url, data=update_data, headers=headers, auth=auth)
+print(response)
