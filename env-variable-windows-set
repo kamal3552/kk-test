@@ -1,0 +1,37 @@
+import os
+import getpass
+
+# Ask user for password
+password = getpass.getpass(prompt='Enter password: ')
+
+# Set password as Windows environment variable
+os.environ['MY_PASSWORD'] = password
+
+# Later, retrieve password from environment variable
+password = os.environ.get('MY_PASSWORD')
+
+# Use password in your code as needed
+print(f'My password is: {password}')
+In this example, the getpass.getpass() function is used to prompt the user to enter a password without displaying the input on the screen. The password entered by the user is stored in the password variable.
+
+The os.environ dictionary is used to set the password as a Windows environment variable with the name MY_PASSWORD.
+
+Later in the code, the os.environ.get() function is used to retrieve the password from the environment variable, and it is stored in the password variable again.
+
+You can then use the password variable in your code as needed. In this example, it is simply printed to the console using an f-string. Note that you should be careful when storing passwords as environment variables, and ensure that they are kept secure and not accidentally exposed.
+=====================================
+
+import os
+
+# Define the name of the environment variable to check
+var_name = 'MY_VARIABLE'
+
+# Check if the environment variable exists
+if var_name in os.environ:
+    print(f'The {var_name} environment variable exists.')
+else:
+    print(f'The {var_name} environment variable does not exist.')
+
+
+============================
+
