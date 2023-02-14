@@ -1,0 +1,71 @@
+import re
+
+# Example list of hostnames
+hostnames = ['router-1', 'switch-2', 'firewall-3', 'host_4']
+
+# Define the regex pattern to match hostnames
+pattern = r'^[a-zA-Z0-9_-]+$'
+
+# Compile the regex pattern
+regex = re.compile(pattern)
+
+# Loop through each hostname and match against the regex pattern
+for hostname in hostnames:
+    match = regex.match(hostname)
+    if match:
+        print(f'{hostname} is a valid hostname')
+    else:
+        print(f'{hostname} is not a valid hostname')
+=============================
+
+import re
+
+# Example text
+text = "apple banana cherry delta elephant foxtrot golf"
+
+# Define the regex pattern to match words starting with "d"
+pattern = r"\bd\w*"
+
+# Compile the regex pattern
+regex = re.compile(pattern)
+
+# Find all matches in the text
+matches = regex.findall(text)
+
+# Print the matches
+print(matches)
+====================
+
+In this example, the regex pattern r"\bd\w*" is used to match any word that starts with the letter "d". The \b word boundary ensures that only whole words are matched, and the \w* matches any word characters (letters, digits, or underscores) that follow the "d".
+
+The ^ anchor can also be used instead of \b to match words that start with a certain character. For example, the regex pattern r"^d\w*" would match words that start with the letter "d" at the beginning of the text.
+
+Note that in this example, the re.findall() function is used to find all matches of the regex pattern in the text. If you only want to find the first match, you can use the re.search() function instead.
+
+===============================
+
+
+import re
+
+# Example text
+text = "SGSGabcd ININxyzw SGSG1234 ININ5678"
+
+# Define the regex pattern to match words starting with "SGSG" or "ININ"
+pattern = r"\b(SGSG|ININ)\w*"
+
+# Compile the regex pattern
+regex = re.compile(pattern)
+
+# Find all matches in the text
+matches = regex.findall(text)
+
+# Print the matches
+print(matches)
+
+--------------------------
+
+In this example, the regex pattern r"\b(SGSG|ININ)\w*" is used to match any word that starts with either "SGSG" or "ININ". The \b word boundary ensures that only whole words are matched, and the (SGSG|ININ) group uses the | alternation operator to match either of these prefixes. The \w* matches any word characters (letters, digits, or underscores) that follow the prefix.
+
+The re.findall() function is used to find all matches of the regex pattern in the text. In this case, it will return a list of all words in the text that start with either "SGSG" or "ININ".
+
+Note that the parentheses around (SGSG|ININ) are necessary to group the alternation operator, so that it only applies to the prefix and not to the entire word.
