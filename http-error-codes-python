@@ -1,0 +1,50 @@
+import requests
+
+# Define the URL to check
+url = 'https://www.example.com/missing-page'
+
+# Send an HTTP GET request to the URL
+response = requests.get(url)
+
+# Check the status code of the response
+if response.status_code >= 400:
+    print(f'The request to {url} returned an error: {response.status_code}')
+else:
+    print(f'The request to {url} was successful.')
+--------
+
+import requests
+
+# Define the URL to check
+url = 'https://www.example.com/protected-page'
+
+# Send an HTTP GET request to the URL
+response = requests.get(url)
+
+# Check the status code of the response
+if response.status_code == 403:
+    print(f'The request to {url} returned a 403 Forbidden error.')
+else:
+    print(f'The request to {url} was successful.')
+
+
+
+----------------------
+
+import requests
+
+# Define the URL to check
+url = 'https://www.example.com/error-page'
+
+try:
+    response = requests.get(url)
+    response.raise_for_status() # raise an exception if the status code indicates an error
+    print(f'The request to {url} was successful.')
+except requests.exceptions.HTTPError as err:
+    print(f'The request to {url} returned an HTTP error: {err}')
+except requests.exceptions.Timeout:
+    print(f'The request to {url} timed out.')
+except requests.exceptions.ConnectionError:
+    print(f'The request to {url} could not be established.')
+except requests.exceptions.RequestException as err:
+    print(f'The request to {url} encountered an error: {err}')
