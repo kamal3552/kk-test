@@ -1,0 +1,27 @@
+import requests
+
+# Confluence page details
+page_id = '123456'  # Replace with the page ID of your Confluence page
+table_id = '12345678'  # Replace with the table ID of the table you want to update
+
+# Confluence REST API details
+base_url = 'https://your-confluence-site.com'
+api_url = f'{base_url}/rest/api/content/{page_id}/child/attachment/{table_id}/data'
+
+# Authentication details
+username = 'your-confluence-username'
+password = 'your-confluence-api-token'
+
+# Table data to be updated
+new_table_data = '| Column 1 | Column 2 | Column 3 |\n|----------|----------|----------|\n| Data 1   | Data 2   | Data 3   |\n'
+
+# Update the table
+headers = {'Content-Type': 'application/json'}
+auth = (username, password)
+response = requests.put(api_url, data=new_table_data, headers=headers, auth=auth)
+
+# Check if update was successful
+if response.status_code == 200:
+    print('Table updated successfully')
+else:
+    print(f'Error updating table. Status code: {response.status_code}')
