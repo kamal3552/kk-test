@@ -1,0 +1,18 @@
+import pandas as pd
+import pygal
+
+# Load the data from a CSV file into a Pandas DataFrame
+df = pd.read_csv('sales_data.csv')
+
+# Extract the relevant columns from the DataFrame
+years = df['year'].tolist()
+sales = df['sales'].tolist()
+
+# Create a bar chart using Pygal
+bar_chart = pygal.Bar()
+bar_chart.title = 'Sales by Year'
+bar_chart.x_labels = years
+bar_chart.add('Sales', sales)
+
+# Render the chart to an SVG image file
+bar_chart.render_to_file('sales_chart.svg')
