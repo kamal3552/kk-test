@@ -1,0 +1,42 @@
+import requests
+
+# Login details
+username = 'your-username'
+password = 'your-password'
+
+# SSO details
+sso_url = 'https://sso.example.com'  # Replace with your SSO URL
+sso_redirect_url = 'https://www.example.com'  # Replace with your website URL that you want to access
+
+# Create a session to persist cookies
+session = requests.session()
+
+# Send a GET request to the SSO URL to get the SSO cookie
+response = session.get(sso_url)
+
+# Check if the SSO cookie was obtained successfully
+if response.status_code == 200:
+    print('SSO cookie obtained successfully')
+else:
+    print(f'Error obtaining SSO cookie. Status code: {response.status_code}')
+    exit()
+
+# Send a POST request to the SSO URL with the login details and SSO cookie
+payload = {'username': username, 'password': password, 'sso_cookie': response.cookies['SSO']}
+response = session.post(sso_url, data=payload)
+
+# Check if the login was successful
+if response.status_code == 200 and sso_redirect_url in response.url:
+    print('Login successful')
+else:
+    print(f'Error logging in. Status code: {response.status_code}')
+    exit()
+
+# Send a GET request to the website URL to access the website
+response = session.get(sso_redirect_url)
+
+# Check if the website was accessed successfully
+if response.status_code == 200:
+    print('Website accessed successfully')
+else:
+    print(f'Error accessing website. Status code: {response.status_code}')
