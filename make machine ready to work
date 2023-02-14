@@ -1,0 +1,70 @@
+import os
+import time
+import pyautogui
+
+# Set the positions for the top-left corner of each app window on the two monitors
+monitor_1_app_1_x, monitor_1_app_1_y = 0, 0
+monitor_1_app_2_x, monitor_1_app_2_y = 800, 0
+monitor_2_app_1_x, monitor_2_app_1_y = 1920, 0
+monitor_2_app_2_x, monitor_2_app_2_y = 2720, 0
+
+# Define the paths to the executable files for the apps to open
+app_1_path = 'C:\\Program Files\\App1\\app1.exe'
+app_2_path = 'C:\\Program Files\\App2\\app2.exe'
+app_3_path = 'C:\\Program Files\\App3\\app3.exe'
+app_4_path = 'C:\\Program Files\\App4\\app4.exe'
+
+# Open the apps using the os module
+os.startfile(app_1_path)
+os.startfile(app_2_path)
+os.startfile(app_3_path)
+os.startfile(app_4_path)
+
+# Wait for the apps to fully load before arranging their windows
+time.sleep(5)
+
+# Get the size of the two monitors using pyautogui
+monitor_1_width, monitor_1_height = pyautogui.size()
+monitor_2_width, monitor_2_height = pyautogui.size()
+
+# Set the width and height of each app window
+app_width, app_height = 800, 600
+
+# Move and resize each app window using pyautogui
+pyautogui.moveTo(monitor_1_app_1_x, monitor_1_app_1_y)
+pyautogui.dragTo(monitor_1_app_1_x + app_width, monitor_1_app_1_y + app_height, duration=1)
+
+pyautogui.moveTo(monitor_1_app_2_x, monitor_1_app_2_y)
+pyautogui.dragTo(monitor_1_app_2_x + app_width, monitor_1_app_2_y + app_height, duration=1)
+
+pyautogui.moveTo(monitor_2_app_1_x, monitor_2_app_1_y)
+pyautogui.dragTo(monitor_2_app_1_x + app_width, monitor_2_app_1_y + app_height, duration=1)
+
+pyautogui.moveTo(monitor_2_app_2_x, monitor_2_app_2_y)
+pyautogui.dragTo(monitor_2_app_2_x + app_width, monitor_2_app_2_y + app_height, duration=1)
+-----------------------
+
+import subprocess
+import pyautogui
+
+# Set the path to the Chrome executable file
+chrome_path = 'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe'
+
+# Open Chrome with the --disable-features=RendererCodeIntegrity flag
+subprocess.Popen([chrome_path, '--disable-features=RendererCodeIntegrity'])
+
+# Wait for Chrome to open and load a web page
+# You can adjust the time.sleep() value as needed for your system and internet connection speed
+time.sleep(10)
+
+# Simulate a Chrome crash by closing the Chrome window
+pyautogui.hotkey('alt', 'f4')
+
+# Wait for a few seconds to give Chrome time to crash and prompt for restore
+time.sleep(5)
+
+# Use pyautogui to press the Enter key to restore the tabs
+pyautogui.press('enter')
+
+
+-----------------------------
