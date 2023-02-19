@@ -1,0 +1,29 @@
+import concurrent.futures
+
+def process_item_1(item):
+    # do some work on the item
+    result_1 = ...
+    return result_1
+
+def process_item_2(result_1):
+    # do some work that depends on result_1
+    result_2 = ...
+    return result_2
+
+def process_item_3(result_2):
+    # do some work that depends on result_2
+    result_3 = ...
+    return result_3
+
+my_list = [1, 2, 3, 4, 5]
+
+with concurrent.futures.ThreadPoolExecutor() as executor:
+    futures = []
+    for item in my_list:
+        future_1 = executor.submit(process_item_1, item)
+        future_2 = executor.submit(process_item_2, future_1.result())
+        future_3 = executor.submit(process_item_3, future_2.result())
+        futures.append(future_3)
+
+results = [future.result() for future in futures]
+print(results)
