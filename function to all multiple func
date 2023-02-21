@@ -1,0 +1,102 @@
+def function1():
+    return 1, 2, 3
+
+def function2():
+    return 4, 5, 6
+
+def function3():
+    return 7, 8, 9
+
+# Create a list of the functions to call
+functions = [function1, function2, function3]
+
+# Create an empty list to store the results
+results = []
+
+# Call each function in the list and append the results to the results list
+for func in functions:
+    results.append(func())
+
+# Print the results as a table
+print('Results:')
+print('-' * 20)
+for row in results:
+    print('| {:<5} | {:<5} | {:<5} |'.format(*row))
+    print('-' * 20)
+
+
+========================
+
+def function1(x):
+    return x + 1, x + 2, x + 3
+
+def function2(x):
+    return x * 2, x * 3, x * 4
+
+def function3(x):
+    return x ** 2, x ** 3, x ** 4
+
+# Define the number of elements to iterate over
+n = 5
+
+# Create an empty list to store the results
+results = []
+
+# Loop over n elements
+for i in range(n):
+    x = i + 1  # Set the value of the current element
+    row = [x]  # Create a new row for the results table
+
+    # Call each function with the current element and append the results to the row
+    for func in [function1, function2, function3]:
+        row.extend(func(x))
+
+    # Append the row to the results list
+    results.append(row)
+
+# Print the results as a table
+print('Results:')
+print('-' * 40)
+print('| {:<5} | {:<5} | {:<5} | {:<5} | {:<5} | {:<5} | {:<5} | {:<5} | {:<5} |'.format('x', 'f1_1', 'f1_2', 'f1_3', 'f2_1', 'f2_2', 'f2_3', 'f3_1', 'f3_2', 'f3_3'))
+print('-' * 40)
+for row in results:
+    print('| {:<5} | {:<5} | {:<5} | {:<5} | {:<5} | {:<5} | {:<5} | {:<5} | {:<5} |'.format(*row))
+    print('-' * 40)
+
+
+========================
+
+def my_function(x):
+    return x + 1, x * 2
+
+# Define the number of elements to iterate over
+n = 5
+
+# Define the header row for the table
+header = ['Element', 'Function 1 Return 1', 'Function 1 Return 2', 'Function 2 Return 1', 'Function 2 Return 2']
+
+# Create an empty list to store the results
+results = []
+
+# Loop over n elements
+for i in range(n):
+    x = i + 1  # Set the value of the current element
+    row = [x]  # Create a new row for the results table
+
+    # Call each function with the current element and extend the row with the results
+    f1_result1, f1_result2 = my_function(x)
+    row.extend([f1_result1, f1_result2])
+    f2_result1, f2_result2 = my_function(x)
+    row.extend([f2_result1, f2_result2])
+
+    # Append the row to the results list
+    results.append(row)
+
+# Print the results as a table
+print('Results:')
+print('-' * 69)
+print('| {:<7} | {:<20} | {:<20} | {:<20} | {:<20} |'.format(*header))
+print('-' * 69)
+for row in results:
+    print('| {:<7} | {:<20} | {:<20} | {:<20} | {:<20} |'.format(*row))
+    print('-' * 69)
