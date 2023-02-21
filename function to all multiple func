@@ -140,3 +140,59 @@ for col in header:
 for row in results:
     table.add_row(*row)
 console.print(table)
+
+==========================================
+
+import html
+
+def my_function(x):
+    return x + 1, x * 2
+
+# Define the number of elements to iterate over
+n = 5
+
+# Define the header row for the table
+header = ['Element', 'Function 1 Return 1', 'Function 1 Return 2', 'Function 2 Return 1', 'Function 2 Return 2']
+
+# Create an empty list to store the results
+results = []
+
+# Loop over n elements
+for i in range(n):
+    x = i + 1  # Set the value of the current element
+    row = [x]  # Create a new row for the results table
+
+    # Call each function with the current element and extend the row with the results
+    f1_result1, f1_result2 = my_function(x)
+    row.extend([f1_result1, f1_result2])
+    f2_result1, f2_result2 = my_function(x)
+    row.extend([f2_result1, f2_result2])
+
+    # Append the row to the results list
+    results.append(row)
+
+# Create the HTML file and write the table to it
+with open('results.html', 'w') as f:
+    # Write the HTML header
+    f.write('<!DOCTYPE html>\n<html>\n<head>\n')
+    f.write('<meta charset="UTF-8">\n')
+    f.write('<title>Results</title>\n')
+    f.write('</head>\n<body>\n')
+
+    # Write the table header
+    f.write('<table>\n')
+    f.write('<tr>\n')
+    for col in header:
+        f.write(f'<th>{col}</th>\n')
+    f.write('</tr>\n')
+
+    # Write the table rows
+    for row in results:
+        f.write('<tr>\n')
+        for item in row:
+            f.write(f'<td>{html.escape(str(item))}</td>\n')
+        f.write('</tr>\n')
+
+    # Write the table footer and close the file
+    f.write('</table>\n')
+    f.write('</body>\n</html>\n')
