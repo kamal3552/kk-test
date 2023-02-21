@@ -1,0 +1,16 @@
+def is_valid_integer(string):
+    """
+    Check if the given string represents a valid integer.
+    Returns True if the string is a valid integer, otherwise False.
+    """
+    try:
+        int(string)
+        return True
+    except ValueError:
+        # If the string cannot be converted to an integer, it is invalid
+        return False
+
+if is_valid_integer('42'):
+    print('The string represents a valid integer')
+else:
+    print('The string does not represent a valid integer')
