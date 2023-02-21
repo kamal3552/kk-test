@@ -1,0 +1,19 @@
+import subprocess
+
+def is_string_in_command_output(command, string):
+    """
+    Check if the given string is present in the output of the given command.
+    Returns True if the string is present, otherwise False.
+    """
+    try:
+        output = subprocess.check_output(command, shell=True, text=True)
+        return string in output
+    except (subprocess.CalledProcessError, FileNotFoundError):
+        # If the command fails or is not found, return False
+        return False
+
+
+if is_string_in_command_output('ls -l', 'file.txt'):
+    print('The file file.txt is present in the output of ls -l')
+else:
+    print('The file file.txt is not present in the output of ls -l')
